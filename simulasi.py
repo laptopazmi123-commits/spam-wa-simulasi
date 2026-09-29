@@ -2,14 +2,16 @@
 # -*- coding: utf-8 -*-
 """
 ===========================================
- SPAM OTP - ......
- Author  : Azmi
- Version : 4.1.0
- Year    : 2024
+ SPAM OTP - wa/telegram
+ Author    : Azmi
+ YouTube   : Gkx!!!
+ Version   : 5.2.0
+ Year      : 2024
 -------------------------------------------
  - HANYA menulis ke file log lokal
- - mohon gunakan dengan bijak
- - Target default: 086768655509
+ - TIDAK terhubung ke WhatsApp / Telegram
+ - Target default: 0867686555
+ - Login: zimzz123 / 12345
 ===========================================
 """
 
@@ -18,11 +20,14 @@ import sys
 import time
 import random
 import datetime
-import threading
 import shutil
 
 # ============ KONFIGURASI ============
-NOMOR_DEFAULT    = "086768655509"
+USERNAME         = "zimzz123"
+PASSWORD         = "12345"
+STATUS_PENCIPTA  = "OWNER / CREATOR"
+NAMA_YOUTUBE     = "Gkx!!!"
+NOMOR_DEFAULT    = "0867686555"
 LOG_FILE_WA      = "log_otp_wa.txt"
 LOG_FILE_TG      = "log_otp_telegram.txt"
 PAKAI_API        = True
@@ -60,18 +65,6 @@ class C:
         RED = ORANGE = YELLOW = GREEN = CYAN = BLUE = ""
         MAGENTA = WHITE = DIM = RESET = BLINK = ""
         BG_RED = BG_BLUE = ""
-
-# ====== HARI & BULAN ======
-HARI_ID = {
-    0: "SENIN", 1: "SELASA", 2: "RABU",
-    3: "KAMIS", 4: "JUMAT", 5: "SABTU", 6: "MINGGU"
-}
-BULAN_ID = {
-    1: "JANUARI", 2: "FEBRUARI", 3: "MARET",
-    4: "APRIL", 5: "MEI", 6: "JUNI",
-    7: "JULI", 8: "AGUSTUS", 9: "SEPTEMBER",
-    10: "OKTOBER", 11: "NOVEMBER", 12: "DESEMBER"
-}
 
 # ====== API ======
 def buat_fire():
@@ -112,37 +105,6 @@ LOGO_KECIL = r"""
 def pakai_logo_besar():
     return PAKAI_LOGO_BESAR and LEBAR >= 60
 
-# ====== LIVE CLOCK ======
-_clock_lock = threading.Lock()
-
-def ambil_waktu_live():
-    now = datetime.datetime.now()
-    return (
-        HARI_ID[now.weekday()],
-        now.day,
-        BULAN_ID[now.month],
-        now.year,
-        now.strftime("%H:%M:%S")
-    )
-
-def format_clock():
-    hari, tgl, bulan, tahun, jam = ambil_waktu_live()
-    return (
-        f"{C.BG_BLUE}{C.WHITE} 📅 {hari}, {tgl:02d} {bulan} {tahun} "
-        f"{C.RESET} {C.BG_RED}{C.WHITE} ⏰ {jam} WIB {C.RESET}"
-    )
-
-def print_live_clock():
-    print("  " + format_clock())
-
-def live_clock_loop(stop_event):
-    while not stop_event.is_set():
-        with _clock_lock:
-            teks = "  " + format_clock()
-            sys.stdout.write("\033[s\033[2K\r" + teks + "\033[u")
-            sys.stdout.flush()
-        time.sleep(1)
-
 # ====== UTIL ======
 def clear():
     os.system("clear" if os.name == "posix" else "cls")
@@ -166,10 +128,60 @@ def print_banner():
     print_logo()
     print(C.MAGENTA + "  ╔══════════════════════════════════════════════════════╗")
     print(C.MAGENTA + "  ║" + C.WHITE + "           🔥 Created by : " + C.YELLOW + "AZMI" + C.WHITE + " 🔥                  " + C.MAGENTA + "║")
+    print(C.MAGENTA + "  ║" + C.WHITE + f"           👑 Status    : " + C.GREEN + f"{STATUS_PENCIPTA:<12}" + C.WHITE + "              " + C.MAGENTA + "║")
+    print(C.MAGENTA + "  ║" + C.WHITE + f"           ▶  YouTube   : " + C.RED + f"{NAMA_YOUTUBE:<12}" + C.WHITE + "              " + C.MAGENTA + "║")
     print(C.MAGENTA + "  ║" + C.WHITE + "           ⚠  Tidak kirim ke WA/Telegram asli         " + C.MAGENTA + "║")
     print(C.MAGENTA + "  ╚══════════════════════════════════════════════════════╝" + C.RESET)
-    print_live_clock()
     print(C.ORANGE + "  " + "─"*min(LEBAR-4, 56) + C.RESET)
+
+# ====== LOGIN ======
+def login():
+    """Sistem login — cek username + password"""
+    max_percobaan = 3
+    percobaan = 0
+
+    while percobaan < max_percobaan:
+        clear()
+        if PAKAI_API:
+            print_fire()
+        print_logo()
+        print(C.MAGENTA + "  ╔══════════════════════════════════════════════════════╗")
+        print(C.MAGENTA + "  ║" + C.WHITE + "              🔐 LOGIN Diperlukan 🔐                  " + C.MAGENTA + "║")
+        print(C.MAGENTA + "  ║" + C.WHITE + "                                                      " + C.MAGENTA + "║")
+        print(C.MAGENTA + "  ║" + C.WHITE + f"           👑 Status  : " + C.GREEN + f"{STATUS_PENCIPTA:<20}" + C.WHITE + "      " + C.MAGENTA + "║")
+        print(C.MAGENTA + "  ║" + C.WHITE + f"           ▶  YouTube : " + C.RED + f"{NAMA_YOUTUBE:<20}" + C.WHITE + "      " + C.MAGENTA + "║")
+        print(C.MAGENTA + "  ╚══════════════════════════════════════════════════════╝" + C.RESET)
+        print()
+        print(f"  {C.CYAN}Username : {C.RESET}", end="")
+        user = input().strip()
+        print(f"  {C.CYAN}Password : {C.RESET}", end="")
+        pw = input().strip()
+
+        if user == USERNAME and pw == PASSWORD:
+            print(f"\n  {C.GREEN}[✓] Login berhasil! Selamat datang, {USERNAME}.{C.RESET}")
+            print(f"  {C.YELLOW}👑 Status  : {STATUS_PENCIPTA}{C.RESET}")
+            print(f"  {C.RED}▶  YouTube : {NAMA_YOUTUBE}{C.RESET}")
+            time.sleep(1.5)
+            return True
+        else:
+            percobaan += 1
+            sisa = max_percobaan - percobaan
+            print(f"\n  {C.RED}[✗] Username/Password salah! Sisa percobaan: {sisa}{C.RESET}")
+            time.sleep(1.5)
+
+    # Kalau 3x salah
+    clear()
+    print(C.RED)
+    print("  ╔══════════════════════════════════════════════════════╗")
+    print("  ║                                                      ║")
+    print("  ║           ❌ AKSES DITOLAK - 3x SALAH ❌              ║")
+    print("  ║                                                      ║")
+    print("  ║              Program akan keluar...                  ║")
+    print("  ║                                                      ║")
+    print("  ╚══════════════════════════════════════════════════════╝")
+    print(C.RESET)
+    time.sleep(2)
+    return False
 
 # ====== GENERATOR OTP ======
 def generate_otp():
@@ -223,6 +235,8 @@ def spam_otp(platform, file_log, warna_platform):
     print(f"  {C.CYAN}Jumlah      : {C.WHITE}{jumlah}{C.RESET}")
     print(f"  {C.CYAN}Delay       : {C.WHITE}{delay}s{C.RESET}")
     print(f"  {C.RED}MODE        : {C.YELLOW}LOKAL (tidak kirim ke {platform}){C.RESET}")
+    print(f"  {C.YELLOW}👑 Status    : {C.GREEN}{STATUS_PENCIPTA}{C.RESET}")
+    print(f"  {C.RED}▶  YouTube   : {C.YELLOW}{NAMA_YOUTUBE}{C.RESET}")
     print()
     time.sleep(1)
 
@@ -255,6 +269,8 @@ def spam_otp(platform, file_log, warna_platform):
     print(f"  Sukses    : {C.GREEN}{sukses}{C.RESET}")
     print(f"  Gagal     : {C.RED}{gagal}{C.RESET}")
     print(f"  Log file  : {C.YELLOW}{file_log}{C.RESET}")
+    print(f"  Operator  : {C.GREEN}{USERNAME} ({STATUS_PENCIPTA}){C.RESET}")
+    print(f"  YouTube   : {C.RED}{NAMA_YOUTUBE}{C.RESET}")
     print(C.ORANGE + "="*min(LEBAR-4, 58) + C.RESET)
     print(f"{C.YELLOW}[i] OTP di atas adalah random/palsu.")
     print(f"    Tidak ada yang benar-benar terkirim.{C.RESET}\n")
@@ -310,7 +326,10 @@ def hapus_log():
 def menu():
     while True:
         print_banner()
-        print(f"  Nomor default : {C.YELLOW}{NOMOR_DEFAULT}{C.RESET}\n")
+        print(f"  👤 Login sebagai : {C.GREEN}{USERNAME}{C.RESET}")
+        print(f"  👑 Status        : {C.YELLOW}{STATUS_PENCIPTA}{C.RESET}")
+        print(f"  ▶  YouTube       : {C.RED}{NAMA_YOUTUBE}{C.RESET}")
+        print(f"  📞 Nomor default : {C.YELLOW}{NOMOR_DEFAULT}{C.RESET}\n")
         print(f"  {C.GREEN}[1]{C.RESET} {C.WHITE}SPAM OTP WA{C.RESET}")
         print(f"  {C.GREEN}[2]{C.RESET} {C.WHITE}SPAM OTP TELEGRAM{C.RESET}")
         print(f"  {C.GREEN}[3]{C.RESET} Lihat Log")
@@ -342,19 +361,23 @@ def menu():
             print(C.YELLOW)
             print("  INFO / DISCLAIMER:")
             print("  -------------------------------------------------")
-            print("  • Script ini adalah SIMULASI untuk EDUKASI.")
+            print("  • Script ini adalah SIMULASI untuk latihan Python.")
             print("  • Hanya menulis ke file log lokal.")
             print("  • TIDAK terhubung ke WhatsApp / Telegram.")
             print("  • Kode OTP yang muncul adalah RANDOM/PALSU.")
             print("  • Tidak ada pesan yang benar-benar terkirim.")
-            print("  • Hanya untuk belajar Python & logika loop.")
             print("  • Spam OTP ke orang lain = pelanggaran UU ITE.")
-            print("  • Author: Azmi - 2024")
+            print("  -------------------------------------------------")
+            print(f"  👤 Author  : Azmi")
+            print(f"  👑 Status  : {STATUS_PENCIPTA}")
+            print(f"  ▶  YouTube : {NAMA_YOUTUBE}")
+            print(f"  🆔 Login   : {USERNAME}")
+            print(f"  📅 Tahun   : 2024")
             print(C.RESET)
             input("  Enter untuk kembali...")
 
         elif pilih == "6":
-            print(f"\n{C.GREEN}[✓] Bye! - Azmi{C.RESET}\n")
+            print(f"\n{C.GREEN}[✓] Bye! - Azmi | YouTube: {NAMA_YOUTUBE}{C.RESET}\n")
             sys.exit(0)
         else:
             print(f"\n{C.RED}[!] Pilihan tidak valid.{C.RESET}")
@@ -362,13 +385,10 @@ def menu():
 
 # ====== ENTRY POINT ======
 if __name__ == "__main__":
-    stop_event = threading.Event()
-    clock_thread = threading.Thread(target=live_clock_loop, args=(stop_event,), daemon=True)
-    clock_thread.start()
     try:
-        menu()
+        if login():
+            menu()
+        else:
+            sys.exit(1)
     except KeyboardInterrupt:
-        pass
-    finally:
-        stop_event.set()
-        print(f"\n\n{C.GREEN}[✓] Dihentikan. - Azmi{C.RESET}\n")
+        print(f"\n\n{C.GREEN}[✓] Dihentikan. - Azmi | YouTube: {NAMA_YOUTUBE}{C.RESET}\n")
