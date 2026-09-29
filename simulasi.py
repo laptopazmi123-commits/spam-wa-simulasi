@@ -8,8 +8,8 @@
  Year    : 2024
 -------------------------------------------
  - HANYA menulis ke file log lokal
- - TIDAK terhubung ke WhatsApp / Telegram
- - Target default: 0867686555
+ - mohon gunakan dengan bijak
+ - Target default: 086768655509
 ===========================================
 """
 
@@ -22,7 +22,7 @@ import threading
 import shutil
 
 # ============ KONFIGURASI ============
-NOMOR_DEFAULT    = "0867686555"
+NOMOR_DEFAULT    = "086768655509"
 LOG_FILE_WA      = "log_otp_wa.txt"
 LOG_FILE_TG      = "log_otp_telegram.txt"
 PAKAI_API        = True
