@@ -2,15 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 ===========================================
- SIMULASI SPAM WA - EDUKASI ONLY
+ SPAM OTP - ......
  Author  : Azmi
- Version : 3.0.0
+ Version : 4.1.0
  Year    : 2024
 -------------------------------------------
  - HANYA menulis ke file log lokal
- - TIDAK terhubung ke WhatsApp / internet
- - Target default: 0888888888888
- - Fitur baru: Live tanggal, bulan, tahun, jam
+ - TIDAK terhubung ke WhatsApp / Telegram
+ - Target default: 0867686555
 ===========================================
 """
 
@@ -20,28 +19,49 @@ import time
 import random
 import datetime
 import threading
+import shutil
 
-# ====== KONFIGURASI ======
-NOMOR_DEFAULT = "0888888888888"
-LOG_FILE      = "log_simulasi.txt"
+# ============ KONFIGURASI ============
+NOMOR_DEFAULT    = "0867686555"
+LOG_FILE_WA      = "log_otp_wa.txt"
+LOG_FILE_TG      = "log_otp_telegram.txt"
+PAKAI_API        = True
+PAKAI_BLINK      = True
+PAKAI_LOGO_BESAR = True
+PAKAI_WARNA      = True
+# =====================================
+
+# ====== DETEKSI LEBAR LAYAR ======
+def get_lebar():
+    try:
+        return shutil.get_terminal_size().columns
+    except Exception:
+        return 40
+
+LEBAR = get_lebar()
 
 # ====== WARNA ANSI ======
 class C:
-    RED     = "\033[1;31m"
-    ORANGE  = "\033[1;33m"
-    YELLOW  = "\033[1;93m"
-    GREEN   = "\033[1;32m"
-    CYAN    = "\033[1;36m"
-    BLUE    = "\033[1;34m"
-    MAGENTA = "\033[1;35m"
-    WHITE   = "\033[1;37m"
-    DIM     = "\033[2m"
-    RESET   = "\033[0m"
-    BLINK   = "\033[5m"
-    BG_RED  = "\033[1;41m"
-    BG_BLUE = "\033[1;44m"
+    if PAKAI_WARNA:
+        RED     = "\033[1;31m"
+        ORANGE  = "\033[1;33m"
+        YELLOW  = "\033[1;93m"
+        GREEN   = "\033[1;32m"
+        CYAN    = "\033[1;36m"
+        BLUE    = "\033[1;34m"
+        MAGENTA = "\033[1;35m"
+        WHITE   = "\033[1;37m"
+        DIM     = "\033[2m"
+        RESET   = "\033[0m"
+        BLINK   = "\033[5m" if PAKAI_BLINK else ""
+        BG_RED  = "\033[1;41m"
+        BG_BLUE = "\033[1;44m"
+    else:
+        RED = ORANGE = YELLOW = GREEN = CYAN = BLUE = ""
+        MAGENTA = WHITE = DIM = RESET = BLINK = ""
+        BG_RED = BG_BLUE = ""
 
-# ====== HARI & BULAN INDONESIA ======
+# ====== HARI & BULAN ======
 HARI_ID = {
     0: "SENIN", 1: "SELASA", 2: "RABU",
     3: "KAMIS", 4: "JUMAT", 5: "SABTU", 6: "MINGGU"
@@ -53,70 +73,74 @@ BULAN_ID = {
     10: "OKTOBER", 11: "NOVEMBER", 12: "DESEMBER"
 }
 
-# ====== EFEK GARIS API BESAR ======
-FIRE_LINES = [
-    "  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ",
-    "  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒  ",
-    "  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ",
-    "  █████████████████████████████████████████████████████████████████████  ",
-    "  █████████████████████████████████████████████████████████████████████  ",
-    "  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ",
-    "  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒  ",
-    "  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ",
-]
+# ====== API ======
+def buat_fire():
+    if not PAKAI_API:
+        return []
+    w = min(LEBAR - 4, 70)
+    if w < 20:
+        w = 20
+    pola = ["░", "▒", "▓", "█", "█", "▓", "▒", "░"]
+    return [p * w for p in pola]
+
+FIRE_LINES = buat_fire()
 FIRE_COLORS = [C.YELLOW, C.ORANGE, C.RED, C.RED, C.RED, C.ORANGE, C.YELLOW, C.YELLOW]
 
-# ====== LOGO ASCII ======
-LOGO_SPAM = r"""
+# ====== LOGO ======
+LOGO_BESAR = r"""
   ███████╗██████╗  █████╗ ███╗   ███╗    ██╗    ██╗ █████╗ 
   ██╔════╝██╔══██╗██╔══██╗████╗ ████║    ██║    ██║██╔══██╗
   ███████╗██████╔╝███████║██╔████╔██║    ██║ █╗ ██║███████║
   ╚════██║██╔═══╝ ██╔══██║██║╚██╔╝██║    ██║███╗██║██╔══██║
   ███████║██║     ██║  ██║██║ ╚═╝ ██║    ╚███╔███╔╝██║  ██║
   ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝
+
+         ██████╗ ████████╗██████╗ 
+        ██╔═══██╗╚══██╔══╝██╔══██╗
+        ██║   ██║   ██║   ██████╔╝
+        ██║   ██║   ██║   ██╔═══╝ 
+        ╚██████╔╝   ██║   ██║     
+         ╚═════╝    ╚═╝   ╚═╝     
 """
 
-LOGO_SIMULASI = r"""
-   ███████╗██╗███╗   ███╗██╗   ██╗██╗      █████╗ ███████╗██╗
-   ██╔════╝██║████╗ ████║██║   ██║██║     ██╔══██╗██╔════╝██║
-   ███████╗██║██╔████╔██║██║   ██║██║     ███████║███████╗██║
-   ╚════██║██║██║╚██╔╝██║██║   ██║██║     ██╔══██║╚════██║██║
-   ███████║██║██║ ╚═╝ ██║╚██████╔╝███████╗██║  ██║███████║██║
-   ╚══════╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝
+LOGO_KECIL = r"""
+   ╔═╗╔═╗╔═╗╔╦╗  ╔═╗╔╦╗╔═╗
+   ╚═╗╠═╝╠═╣║║║  ║ ║ ║ ╠═╝
+   ╚═╝╩  ╩ ╩╩ ╩  ╚═╝ ╩ ╩  
 """
+
+def pakai_logo_besar():
+    return PAKAI_LOGO_BESAR and LEBAR >= 60
 
 # ====== LIVE CLOCK ======
-_running_clock = False
+_clock_lock = threading.Lock()
 
 def ambil_waktu_live():
-    """Ambil string waktu live lengkap"""
     now = datetime.datetime.now()
-    hari   = HARI_ID[now.weekday()]
-    tgl    = now.day
-    bulan  = BULAN_ID[now.month]
-    tahun  = now.year
-    jam    = now.strftime("%H:%M:%S")
-    return hari, tgl, bulan, tahun, jam
+    return (
+        HARI_ID[now.weekday()],
+        now.day,
+        BULAN_ID[now.month],
+        now.year,
+        now.strftime("%H:%M:%S")
+    )
 
-def print_live_clock():
-    """Cetak live clock sekali (satu baris)"""
+def format_clock():
     hari, tgl, bulan, tahun, jam = ambil_waktu_live()
-    print(
-        f"  {C.BG_BLUE}{C.WHITE} 📅 {hari}, {tgl:02d} {bulan} {tahun} "
+    return (
+        f"{C.BG_BLUE}{C.WHITE} 📅 {hari}, {tgl:02d} {bulan} {tahun} "
         f"{C.RESET} {C.BG_RED}{C.WHITE} ⏰ {jam} WIB {C.RESET}"
     )
 
+def print_live_clock():
+    print("  " + format_clock())
+
 def live_clock_loop(stop_event):
-    """Loop update jam tiap detik (di background thread)"""
-    # Simpan posisi baris ini supaya bisa ditimpa terus
     while not stop_event.is_set():
-        hari, tgl, bulan, tahun, jam = ambil_waktu_live()
-        # \033[2K = hapus 1 baris penuh, \r = kembali ke awal baris
-        sys.stdout.write(
-            f"\r  {C.BG_BLUE}{C.WHITE} 📅 {hari}, {tgl:02d} {bulan} {tahun} "
-            f"{C.RESET} {C.BG_RED}{C.WHITE} ⏰ {jam} WIB {C.RESET}   "
-        )
-        sys.stdout.flush()
+        with _clock_lock:
+            teks = "  " + format_clock()
+            sys.stdout.write("\033[s\033[2K\r" + teks + "\033[u")
+            sys.stdout.flush()
         time.sleep(1)
 
 # ====== UTIL ======
@@ -125,31 +149,38 @@ def clear():
 
 def print_fire():
     for baris, warna in zip(FIRE_LINES, FIRE_COLORS):
-        print(warna + baris + C.RESET)
+        print(warna + "  " + baris + C.RESET)
 
 def print_logo():
-    print(C.YELLOW + LOGO_SPAM + C.RESET)
-    print(C.RED + C.BLINK + "            ═══════ [ SIMULASI - EDUKASI ONLY ] ═══════" + C.RESET)
-    print(C.CYAN + LOGO_SIMULASI + C.RESET)
+    if pakai_logo_besar():
+        print(C.YELLOW + LOGO_BESAR + C.RESET)
+        print(C.RED + C.BLINK + "              ═══════ [ ⚡ ⚡ ⚡ ] ═══════" + C.RESET)
+    else:
+        print(C.YELLOW + LOGO_KECIL + C.RESET)
+        print(C.RED + C.BLINK + "        [ ⚡ ⚡ ⚡ ]" + C.RESET)
 
 def print_banner():
     clear()
-    print_fire()
+    if PAKAI_API:
+        print_fire()
     print_logo()
     print(C.MAGENTA + "  ╔══════════════════════════════════════════════════════╗")
     print(C.MAGENTA + "  ║" + C.WHITE + "           🔥 Created by : " + C.YELLOW + "AZMI" + C.WHITE + " 🔥                  " + C.MAGENTA + "║")
-    print(C.MAGENTA + "  ║" + C.WHITE + "           ⚠  Tidak kirim ke WhatsApp asli            " + C.MAGENTA + "║")
+    print(C.MAGENTA + "  ║" + C.WHITE + "           ⚠  Tidak kirim ke WA/Telegram asli         " + C.MAGENTA + "║")
     print(C.MAGENTA + "  ╚══════════════════════════════════════════════════════╝" + C.RESET)
-    # ==== LIVE CLOCK ====
     print_live_clock()
-    print(C.ORANGE + "  " + "─"*56 + C.RESET)
+    print(C.ORANGE + "  " + "─"*min(LEBAR-4, 56) + C.RESET)
 
-# ====== LOG & SIMULASI ======
-def tulis_log(nomor, pesan, status="TERCATAT"):
-    now = datetime.datetime.now()
-    waktu = now.strftime("%Y-%m-%d %H:%M:%S")
-    baris = f"[{waktu}] [{status}] -> {nomor} : {pesan}"
-    with open(LOG_FILE, "a", encoding="utf-8") as f:
+# ====== GENERATOR OTP ======
+def generate_otp():
+    """Generate kode OTP 6 digit (random/palsu)"""
+    return str(random.randint(100000, 999999))
+
+# ====== LOG ======
+def tulis_log(file_log, platform, nomor, otp, status="TERCATAT"):
+    waktu = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    baris = f"[{waktu}] [{status}] [{platform}] -> {nomor} : KODE OTP = {otp}"
+    with open(file_log, "a", encoding="utf-8") as f:
         f.write(baris + "\n")
     return baris
 
@@ -157,23 +188,54 @@ def validasi_nomor(nomor):
     n = nomor.replace("+","").replace("-","").replace(" ","")
     return n.isdigit() and 10 <= len(n) <= 15
 
-def mulai_simulasi(nomor, pesan, jumlah, delay):
-    print(f"\n{C.CYAN}[i] Target  : {C.WHITE}{nomor}{C.RESET}")
-    print(f"{C.CYAN}[i] Pesan   : {C.WHITE}{pesan}{C.RESET}")
-    print(f"{C.CYAN}[i] Jumlah  : {C.WHITE}{jumlah}{C.RESET}")
-    print(f"{C.CYAN}[i] Delay   : {C.WHITE}{delay}s{C.RESET}")
-    print(f"{C.RED}[i] MODE    : {C.YELLOW}SIMULASI LOKAL (tidak kirim ke WA){C.RESET}\n")
+# ====== SPAM OTP (WA / TELEGRAM) ======
+def spam_otp(platform, file_log, warna_platform):
+    print()
+    print(warna_platform + "  ╔══════════════════════════════════════════════╗")
+    print(warna_platform + f"  ║        📨 SPAM OTP - {platform.upper():<20}    ║")
+    print(warna_platform + "  ╚══════════════════════════════════════════════╝" + C.RESET)
+    print()
+
+    # ==== INPUT NOMOR TARGET ====
+    nomor = input(f"  {C.CYAN}Nomor target [{NOMOR_DEFAULT}] > {C.RESET}").strip()
+    if not nomor:
+        nomor = NOMOR_DEFAULT
+    if not validasi_nomor(nomor):
+        print(f"\n{C.RED}[!] Nomor tidak valid.{C.RESET}")
+        input("  Enter...")
+        return
+
+    # ==== INPUT JUMLAH & DELAY ====
+    try:
+        jumlah = int(input(f"  {C.CYAN}Jumlah OTP  > {C.RESET}"))
+        delay  = float(input(f"  {C.CYAN}Delay(s)    > {C.RESET}"))
+        if jumlah <= 0 or delay < 0:
+            raise ValueError
+    except ValueError:
+        print(f"\n{C.RED}[!] Angka tidak valid.{C.RESET}")
+        input("  Enter...")
+        return
+
+    # ==== INFO ====
+    print()
+    print(f"  {C.CYAN}Platform    : {C.WHITE}{platform.upper()}{C.RESET}")
+    print(f"  {C.CYAN}Target      : {C.WHITE}{nomor}{C.RESET}")
+    print(f"  {C.CYAN}Jumlah      : {C.WHITE}{jumlah}{C.RESET}")
+    print(f"  {C.CYAN}Delay       : {C.WHITE}{delay}s{C.RESET}")
+    print(f"  {C.RED}MODE        : {C.YELLOW}LOKAL (tidak kirim ke {platform}){C.RESET}")
+    print()
     time.sleep(1)
 
     sukses, gagal = 0, 0
     for i in range(1, jumlah + 1):
         try:
+            otp = generate_otp()
             if random.random() < 0.05:
-                log = tulis_log(nomor, pesan, "GAGAL")
+                log = tulis_log(file_log, platform, nomor, otp, "GAGAL")
                 print(f"{C.RED}[{i}/{jumlah}] {log}{C.RESET}")
                 gagal += 1
             else:
-                log = tulis_log(nomor, pesan, "TERCATAT")
+                log = tulis_log(file_log, platform, nomor, otp, "TERCATAT")
                 print(f"{C.GREEN}[{i}/{jumlah}] {log}{C.RESET}")
                 sukses += 1
             time.sleep(delay)
@@ -184,91 +246,114 @@ def mulai_simulasi(nomor, pesan, jumlah, delay):
             print(f"{C.RED}[!] Error: {e}{C.RESET}")
             gagal += 1
 
-    print("\n" + C.ORANGE + "="*58 + C.RESET)
-    print(C.CYAN + "                [ RINGKASAN SIMULASI ]" + C.RESET)
-    print(C.ORANGE + "="*58 + C.RESET)
+    # ==== RINGKASAN ====
+    print("\n" + C.ORANGE + "="*min(LEBAR-4, 58) + C.RESET)
+    print(C.CYAN + f"           [ RINGKASAN SPAM OTP {platform.upper()} ]" + C.RESET)
+    print(C.ORANGE + "="*min(LEBAR-4, 58) + C.RESET)
+    print(f"  Platform  : {C.WHITE}{platform.upper()}{C.RESET}")
     print(f"  Target    : {C.WHITE}{nomor}{C.RESET}")
     print(f"  Sukses    : {C.GREEN}{sukses}{C.RESET}")
     print(f"  Gagal     : {C.RED}{gagal}{C.RESET}")
-    print(f"  Log file  : {C.YELLOW}{LOG_FILE}{C.RESET}")
-    print(C.ORANGE + "="*58 + C.RESET)
-    print(f"{C.YELLOW}[i] Ini cuma simulasi lokal. Tidak ada pesan")
-    print(f"    yang benar-benar terkirim ke WhatsApp.{C.RESET}\n")
+    print(f"  Log file  : {C.YELLOW}{file_log}{C.RESET}")
+    print(C.ORANGE + "="*min(LEBAR-4, 58) + C.RESET)
+    print(f"{C.YELLOW}[i] OTP di atas adalah random/palsu.")
+    print(f"    Tidak ada yang benar-benar terkirim.{C.RESET}\n")
 
+# ====== LIHAT & HAPUS LOG ======
 def lihat_log():
-    if not os.path.exists(LOG_FILE):
-        print(f"\n{C.RED}[!] Belum ada log.{C.RESET}")
+    print()
+    print(f"  {C.CYAN}[1]{C.RESET} Log WA")
+    print(f"  {C.CYAN}[2]{C.RESET} Log Telegram")
+    print(f"  {C.CYAN}[0]{C.RESET} Kembali")
+    pilih = input(f"\n  {C.CYAN}Pilih > {C.RESET}").strip()
+
+    if pilih == "1":
+        file_log = LOG_FILE_WA
+    elif pilih == "2":
+        file_log = LOG_FILE_TG
+    else:
         return
-    print(f"\n{C.CYAN}=== LOG SIMULASI ==={C.RESET}")
-    with open(LOG_FILE, "r", encoding="utf-8") as f:
+
+    if not os.path.exists(file_log):
+        print(f"\n{C.RED}[!] Belum ada log di {file_log}.{C.RESET}")
+        return
+    print(f"\n{C.CYAN}=== {file_log} ==={C.RESET}")
+    with open(file_log, "r", encoding="utf-8") as f:
         print(f.read())
 
 def hapus_log():
-    if os.path.exists(LOG_FILE):
-        os.remove(LOG_FILE)
-        print(f"\n{C.GREEN}[✓] Log dihapus.{C.RESET}")
+    print()
+    print(f"  {C.CYAN}[1]{C.RESET} Hapus Log WA")
+    print(f"  {C.CYAN}[2]{C.RESET} Hapus Log Telegram")
+    print(f"  {C.CYAN}[3]{C.RESET} Hapus Semua Log")
+    print(f"  {C.CYAN}[0]{C.RESET} Kembali")
+    pilih = input(f"\n  {C.CYAN}Pilih > {C.RESET}").strip()
+
+    target = []
+    if pilih == "1":
+        target = [LOG_FILE_WA]
+    elif pilih == "2":
+        target = [LOG_FILE_TG]
+    elif pilih == "3":
+        target = [LOG_FILE_WA, LOG_FILE_TG]
     else:
-        print(f"\n{C.RED}[!] Tidak ada log.{C.RESET}")
+        return
+
+    for f in target:
+        if os.path.exists(f):
+            os.remove(f)
+            print(f"{C.GREEN}[✓] {f} dihapus.{C.RESET}")
+        else:
+            print(f"{C.RED}[!] {f} tidak ada.{C.RESET}")
 
 # ====== MENU ======
 def menu():
     while True:
         print_banner()
         print(f"  Nomor default : {C.YELLOW}{NOMOR_DEFAULT}{C.RESET}\n")
-        print(f"  {C.GREEN}[1]{C.RESET} Mulai Simulasi")
-        print(f"  {C.GREEN}[2]{C.RESET} Lihat Log")
-        print(f"  {C.GREEN}[3]{C.RESET} Hapus Log")
-        print(f"  {C.GREEN}[4]{C.RESET} Info / Disclaimer")
-        print(f"  {C.GREEN}[5]{C.RESET} Keluar")
+        print(f"  {C.GREEN}[1]{C.RESET} {C.WHITE}SPAM OTP WA{C.RESET}")
+        print(f"  {C.GREEN}[2]{C.RESET} {C.WHITE}SPAM OTP TELEGRAM{C.RESET}")
+        print(f"  {C.GREEN}[3]{C.RESET} Lihat Log")
+        print(f"  {C.GREEN}[4]{C.RESET} Hapus Log")
+        print(f"  {C.GREEN}[5]{C.RESET} Info / Disclaimer")
+        print(f"  {C.GREEN}[6]{C.RESET} Keluar")
         pilih = input(f"\n  {C.CYAN}Pilih > {C.RESET}").strip()
 
         if pilih == "1":
             print_banner()
-            nomor = input(f"  Nomor target [{NOMOR_DEFAULT}] > ").strip()
-            if not nomor:
-                nomor = NOMOR_DEFAULT
-            if not validasi_nomor(nomor):
-                print(f"\n{C.RED}[!] Nomor tidak valid.{C.RESET}")
-                input("  Enter...")
-                continue
-            pesan = input("  Pesan > ").strip()
-            if not pesan:
-                print(f"\n{C.RED}[!] Pesan kosong.{C.RESET}")
-                input("  Enter...")
-                continue
-            try:
-                jumlah = int(input("  Jumlah  > "))
-                delay  = float(input("  Delay(s)> "))
-                if jumlah <= 0 or delay < 0:
-                    raise ValueError
-            except ValueError:
-                print(f"\n{C.RED}[!] Angka tidak valid.{C.RESET}")
-                input("  Enter...")
-                continue
-            mulai_simulasi(nomor, pesan, jumlah, delay)
+            spam_otp("WhatsApp", LOG_FILE_WA, C.GREEN)
             input("\n  Enter untuk kembali...")
 
         elif pilih == "2":
-            lihat_log()
+            print_banner()
+            spam_otp("Telegram", LOG_FILE_TG, C.BLUE)
             input("\n  Enter untuk kembali...")
 
         elif pilih == "3":
-            if input("  Yakin hapus? (y/n) > ").lower() == "y":
-                hapus_log()
-            input("  Enter untuk kembali...")
+            lihat_log()
+            input("\n  Enter untuk kembali...")
 
         elif pilih == "4":
+            hapus_log()
+            input("\n  Enter untuk kembali...")
+
+        elif pilih == "5":
             print_banner()
             print(C.YELLOW)
-            print("  DISCLAIMER:")
-            print("  - Script ini hanya menulis ke file log lokal.")
-            print("  - TIDAK terhubung ke WhatsApp / internet.")
-            print("  - Hanya untuk belajar Python & logika loop.")
-            print("  - Spam WA ke orang lain = pelanggaran UU ITE.")
+            print("  INFO / DISCLAIMER:")
+            print("  -------------------------------------------------")
+            print("  • Script ini adalah SIMULASI untuk EDUKASI.")
+            print("  • Hanya menulis ke file log lokal.")
+            print("  • TIDAK terhubung ke WhatsApp / Telegram.")
+            print("  • Kode OTP yang muncul adalah RANDOM/PALSU.")
+            print("  • Tidak ada pesan yang benar-benar terkirim.")
+            print("  • Hanya untuk belajar Python & logika loop.")
+            print("  • Spam OTP ke orang lain = pelanggaran UU ITE.")
+            print("  • Author: Azmi - 2024")
             print(C.RESET)
             input("  Enter untuk kembali...")
 
-        elif pilih == "5":
+        elif pilih == "6":
             print(f"\n{C.GREEN}[✓] Bye! - Azmi{C.RESET}\n")
             sys.exit(0)
         else:
@@ -277,7 +362,6 @@ def menu():
 
 # ====== ENTRY POINT ======
 if __name__ == "__main__":
-    # Mulai live clock di background thread
     stop_event = threading.Event()
     clock_thread = threading.Thread(target=live_clock_loop, args=(stop_event,), daemon=True)
     clock_thread.start()
