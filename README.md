@@ -90,7 +90,7 @@ Harus muncul versi keduanya (contoh: `git version 2.x.x` dan `Python 3.11.x`).
 #### 1. Buka Repo di Browser
 Cari repo kamu di GitHub, contoh:
 ```
-https://github.com/azmi/wa-simulasi-azmi
+https://github.com/laptopazmi123-commits/spam-wa-simulas
 ```
 
 #### 2. Copy URL Repo
@@ -98,20 +98,20 @@ Klik tombol hijau **`<> Code`** → tab **HTTPS** → copy URL.
 
 Contoh URL yang didapat:
 ```
-https://github.com/azmi/wa-simulasi-azmi.git
+[https://github.com/azmi/wa-simulasi-azmi.git](https://github.com/azmi/wa-simulasi-azmi.git)](https://github.com/laptopazmi123-commits/spam-wa-simulasi)
 ```
 
 #### 3. Clone di Termux
 ```bash
 cd ~
-git clone https://github.com/laptopazmi123-commits/spam-wa-simulasi
+spam-wa-simulasi
 ```
 
 > ⚠️ Kalau repo **PRIVATE**, pakai Personal Access Token (lihat Cara 3).
 
 #### 4. Masuk Folder
 ```bash
-cd simulasi.py
+cd spam-wa-simulasi
 ```
 
 #### 5. Cek Isi Folder
@@ -148,12 +148,12 @@ ls
 #### 5. Extract ZIP
 ```bash
 pkg install unzip -y
-unzip wa-simulasi-azmi-main.zip
+unzip spam-wa-simulasi-main.zip
 ```
 
 #### 6. Masuk Folder Hasil Extract
 ```bash
-cd wa-simulasi-azmi-main
+cd spam-wa-simulasi
 ```
 
 #### 7. Jalankan
