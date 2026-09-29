@@ -8,8 +8,8 @@
  Version   : 5.2.0
  Year      : 2024
 -------------------------------------------
- - HANYA menulis ke file log lokal
- - TIDAK terhubung ke WhatsApp / Telegram
+ - nyawit bang
+ - hey antek-antek asing
  - Target default: 0867686555
  - Login: zimzz123 / 12345
 ===========================================
