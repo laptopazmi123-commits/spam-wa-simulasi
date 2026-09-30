@@ -557,6 +557,6 @@ Dilarang dijual atau dipakai untuk aktivitas ilegal.
 
 ---
 
-**Made with 🔥 by Azmi — 2024**
+**Made with 🔥 by Azmi — 2026**
 **▶  YouTube: Gkx!!!**
 **Stay legal, stay ethical. 🛡️**
