@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 ===========================================
- SPAM OTP - wa/telegram
+ SPAM OTP - SIMULASI
  Author    : Azmi
  YouTube   : Gkx!!!
- Version   : 5.2.0
+ Version   : 5.3.0
  Year      : 2024
 -------------------------------------------
- - nyawit bang
- - hey antek-antek asing
+ - HANYA menulis ke file log lokal
+ - TIDAK terhubung ke WhatsApp / Telegram
  - Target default: 0867686555
  - Login: zimzz123 / 12345
 ===========================================
@@ -130,7 +130,7 @@ def print_banner():
     print(C.MAGENTA + "  ║" + C.WHITE + "           🔥 Created by : " + C.YELLOW + "AZMI" + C.WHITE + " 🔥                  " + C.MAGENTA + "║")
     print(C.MAGENTA + "  ║" + C.WHITE + f"           👑 Status    : " + C.GREEN + f"{STATUS_PENCIPTA:<12}" + C.WHITE + "              " + C.MAGENTA + "║")
     print(C.MAGENTA + "  ║" + C.WHITE + f"           ▶  YouTube   : " + C.RED + f"{NAMA_YOUTUBE:<12}" + C.WHITE + "              " + C.MAGENTA + "║")
-    print(C.MAGENTA + "  ║" + C.WHITE + "           ⚠  Nyawit enak bang biar kaya         " + C.MAGENTA + "║")
+    print(C.MAGENTA + "  ║" + C.WHITE + "           ⚠  admin suka nyawit karena ingin kaya        " + C.MAGENTA + "║")
     print(C.MAGENTA + "  ╚══════════════════════════════════════════════════════╝" + C.RESET)
     print(C.ORANGE + "  " + "─"*min(LEBAR-4, 56) + C.RESET)
 
@@ -148,7 +148,8 @@ def login():
         print(C.MAGENTA + "  ╔══════════════════════════════════════════════════════╗")
         print(C.MAGENTA + "  ║" + C.WHITE + "              🔐 LOGIN Diperlukan 🔐                  " + C.MAGENTA + "║")
         print(C.MAGENTA + "  ║" + C.WHITE + "                                                      " + C.MAGENTA + "║")
-        print(C.MAGENTA + "  ║" + C.WHITE + f"           ? Status  : " + C.GREEN + f"{status belum di ketahui:<20}" + C.WHITE + "      " + C.MAGENTA + "║")
+        # ==== STATUS AWAL: BELUM DIKETAHUI ====
+        print(C.MAGENTA + "  ║" + C.WHITE + f"           👑 Status  : " + C.RED + f"{'BELUM DIKETAHUI':<20}" + C.WHITE + "      " + C.MAGENTA + "║")
         print(C.MAGENTA + "  ║" + C.WHITE + f"           ▶  YouTube : " + C.RED + f"{NAMA_YOUTUBE:<20}" + C.WHITE + "      " + C.MAGENTA + "║")
         print(C.MAGENTA + "  ╚══════════════════════════════════════════════════════╝" + C.RESET)
         print()
@@ -159,6 +160,7 @@ def login():
 
         if user == USERNAME and pw == PASSWORD:
             print(f"\n  {C.GREEN}[✓] Login berhasil! Selamat datang, {USERNAME}.{C.RESET}")
+            # ==== STATUS SETELAH LOGIN: OWNER / CREATOR ====
             print(f"  {C.YELLOW}👑 Status  : {STATUS_PENCIPTA}{C.RESET}")
             print(f"  {C.RED}▶  YouTube : {NAMA_YOUTUBE}{C.RESET}")
             time.sleep(1.5)
@@ -361,12 +363,12 @@ def menu():
             print(C.YELLOW)
             print("  INFO / DISCLAIMER:")
             print("  -------------------------------------------------")
-            print("  • Script ini adalah untuk latihan Python.")
+            print("  • Script ini adalah SIMULASI untuk latihan Python.")
             print("  • Hanya menulis ke file log lokal.")
             print("  • terhubung ke WhatsApp / Telegram.")
-            print("  • Kode OTP yang muncul adalah RANDOM/acak dri api.")
-            print("  • ......................................")
-            print("  • ......................................")
+            print("  • Kode OTP yang muncul adalah RANDOM/ACAK.")
+            print("  • pesan benar-benar terkirim.")
+            print("  • jangan di salah gunakan.")
             print("  -------------------------------------------------")
             print(f"  👤 Author  : Azmi")
             print(f"  👑 Status  : {STATUS_PENCIPTA}")
