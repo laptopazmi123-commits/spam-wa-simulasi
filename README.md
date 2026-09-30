@@ -542,7 +542,7 @@ Kalau mau otomasi Telegram yang legal, gunakan **Telegram Bot API** resmi.
 ## 👨‍💻 Author
 
 **Azmi**
-- 📅 Tahun: 2024
+- 📅 Tahun: 2026
 - 📌 Versi: 5.3.0
 - ▶  YouTube: **Gkx!!!**
 - 🎯 Tujuan: Edukasi & portofolio
