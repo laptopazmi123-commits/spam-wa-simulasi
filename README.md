@@ -1,8 +1,8 @@
-# 🔥 SIMULASI SPAM WA - By Azmi (v3.0)
+# 🔥 SPAM OTP - SIMULASI EDUKASI - By Azmi
 
-> ⚠️ **SIMULASI EDUKASI** — Hanya menulis ke log lokal. TIDAK terhubung ke WhatsApp / internet.
+> ⚠️ **SIMULASI EDUKASI** — Hanya menulis ke log lokal. TIDAK terhubung ke WhatsApp / Telegram / internet.
 
-Script Python interaktif untuk belajar **loop, file I/O, warna terminal, threading, dan live clock** dengan tema "pengiriman pesan berulang".
+Script Python interaktif untuk belajar **loop, file I/O, warna terminal, login system, dan random generator** dengan tema simulasi pengiriman OTP.
 
 ---
 
@@ -11,12 +11,14 @@ Script Python interaktif untuk belajar **loop, file I/O, warna terminal, threadi
 1. [Fitur](#-fitur)
 2. [Persyaratan](#-persyaratan)
 3. [Instalasi Termux](#-instalasi-termux-dari-nol)
-4. [Cara Run dari GitHub](#-cara-run-dari-github-ke-termux)
-5. [Preview Tampilan](#-preview-tampilan)
-6. [Contoh Penggunaan](#-contoh-penggunaan)
-7. [Struktur File](#-struktur-file)
-8. [Troubleshooting](#-troubleshooting)
-9. [Disclaimer](#-disclaimer)
+4. [Cara Clone dari GitHub](#-cara-clone-dari-github-ke-termux)
+5. [Login Default](#-login-default)
+6. [Preview Tampilan](#-preview-tampilan)
+7. [Contoh Penggunaan](#-contoh-penggunaan)
+8. [Struktur File](#-struktur-file)
+9. [Troubleshooting](#-troubleshooting)
+10. [Disclaimer](#-disclaimer)
+11. [Author](#-author)
 
 ---
 
@@ -24,21 +26,20 @@ Script Python interaktif untuk belajar **loop, file I/O, warna terminal, threadi
 
 | Fitur | Keterangan |
 |-------|------------|
+| 🔐 Login System | Username `zimzz123` + Password `12345` |
+| 👑 Status Pencipta | Tampil `BELUM DIKETAHUI` sebelum login, `OWNER / CREATOR` sesudah |
+| ▶  YouTube | Nama channel: `Gkx!!!` |
 | 🔥 Efek Garis Api | 8 baris ASCII gradasi kuning → merah |
-| 💥 Logo "SPAM WA" | ASCII art besar warna kuning |
-| ✨ Teks Blink | "SIMULASI - EDUKASI ONLY" kedip merah |
-| 🎨 Logo "SIMULASI" | ASCII art warna cyan |
-| 📦 Box Author | Nama pembuat: **AZMI** |
-| 📅 Hari Indonesia | SENIN, SELASA, ..., MINGGU |
-| 📆 Tanggal Live | Auto update tiap hari |
-| 🗓️ Bulan Indonesia | JANUARI, FEBRUARI, ..., DESEMBER |
-| 📅 Tahun Live | Auto update tiap tahun |
-| ⏰ Jam Live WIB | HH:MM:SS update tiap detik |
-| 🧵 Threading | Jam tetap jalan tanpa ganggu menu |
-| 💾 Log Lokal | Simpan ke `log_simulasi.txt` |
+| 💥 Logo "SPAM OTP" | ASCII art besar warna kuning |
+| ✨ Teks Blink | `[ ⚡ ⚡ ⚡ ]` kedip merah |
+| 📨 2 Menu Spam | SPAM OTP WA & SPAM OTP TELEGRAM |
+| 📞 Input Nomor Target | Muncul saat pilih menu 1 atau 2 |
+| 🎲 Kode OTP Random | 6 digit acak per pesan |
+| 💾 Log Terpisah | `log_otp_wa.txt` & `log_otp_telegram.txt` |
 | 🎨 Menu Warna | ANSI color interaktif |
-| 🛡️ Validasi Input | Nomor, pesan, jumlah, delay |
+| 🛡️ Validasi Input | Nomor, jumlah, delay |
 | 🎲 Random Gagal 5% | Simulasi realistis |
+| 🚫 Batas Login | 3x salah → keluar |
 
 ---
 
@@ -54,27 +55,32 @@ Script Python interaktif untuk belajar **loop, file I/O, warna terminal, threadi
 ## 📥 Instalasi Termux (dari nol)
 
 ### Step 1 — Install Termux
+
 Download dari **F-Droid** (JANGAN dari Play Store — sudah deprecated):
 👉 https://f-droid.org/packages/com.termux/
 
 ### Step 2 — Buka Termux
+
 Akan muncul prompt seperti:
 ```
 ~ $
 ```
 
 ### Step 3 — Update & Upgrade
+
 ```bash
 pkg update && pkg upgrade -y
 ```
 > ⏳ Tunggu 1-3 menit. Kalau ada prompt, ketik `y` lalu Enter.
 
 ### Step 4 — Install Git & Python
+
 ```bash
 pkg install git python -y
 ```
 
 ### Step 5 — Cek Instalasi
+
 ```bash
 git --version
 python --version
@@ -83,46 +89,39 @@ Harus muncul versi keduanya (contoh: `git version 2.x.x` dan `Python 3.11.x`).
 
 ---
 
-## 🚀 Cara Run dari GitHub ke Termux
+## 🚀 Cara Clone dari GitHub ke Termux
 
 ### 🅰️ CARA 1 — Clone via HTTPS (Rekomendasi)
 
-#### 1. Buka Repo di Browser
-Cari repo kamu di GitHub, contoh:
-```
-https://github.com/laptopazmi123-commits/spam-wa-simulas
-```
+#### 1. Copy URL Repo
+Repo: `https://github.com/laptopazmi123-commits/spam-wa-simulasi`
 
-#### 2. Copy URL Repo
-Klik tombol hijau **`<> Code`** → tab **HTTPS** → copy URL.
+#### 2. Clone di Termux
 
-Contoh URL yang didapat:
-```
-[https://github.com/azmi/wa-simulasi-azmi.git](https://github.com/azmi/wa-simulasi-azmi.git)](https://github.com/laptopazmi123-commits/spam-wa-simulasi)
-```
-
-#### 3. Clone di Termux
 ```bash
 cd ~
-spam-wa-simulasi
+git clone https://github.com/laptopazmi123-commits/spam-wa-simulasi.git
 ```
 
 > ⚠️ Kalau repo **PRIVATE**, pakai Personal Access Token (lihat Cara 3).
 
-#### 4. Masuk Folder
+#### 3. Masuk Folder
+
 ```bash
 cd spam-wa-simulasi
 ```
 
-#### 5. Cek Isi Folder
+#### 4. Cek Isi Folder
+
 ```bash
 ls -la
 ```
-Harus muncul `simulasi.py`, `README.md`, dll.
+Harus muncul `azmi.py`, `README.md`, dll.
 
-#### 6. Jalankan
+#### 5. Jalankan
+
 ```bash
-python simulasi.py
+python azmi.py
 ```
 
 ✅ **Selesai!**
@@ -132,33 +131,41 @@ python simulasi.py
 ### 🅱️ CARA 2 — Download ZIP (Kalau Gak Mau Ribet Git)
 
 #### 1. Buka Repo di GitHub
+`https://github.com/laptopazmi123-commits/spam-wa-simulasi`
+
 #### 2. Klik Tombol Hijau `<> Code` → **Download ZIP**
+
 #### 3. Pindahkan ZIP ke Termux
+
 ```bash
 termux-setup-storage
 ```
 Ketik **Allow/izinkan** saat muncul popup.
 
 #### 4. Masuk ke Folder Download HP
+
 ```bash
 cd ~/storage/downloads
 ls
 ```
 
 #### 5. Extract ZIP
+
 ```bash
 pkg install unzip -y
 unzip spam-wa-simulasi-main.zip
 ```
 
 #### 6. Masuk Folder Hasil Extract
+
 ```bash
-cd spam-wa-simulasi
+cd spam-wa-simulasi-main
 ```
 
 #### 7. Jalankan
+
 ```bash
-python simulasi.py
+python azmi.py
 ```
 
 ✅ **Selesai!**
@@ -181,19 +188,21 @@ ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### 2. Clone di Termux
+
 ```bash
-git clone https://TOKEN_KAMU@github.com/azmi/wa-simulasi-azmi.git
+git clone https://TOKEN_KAMU@github.com/laptopazmi123-commits/spam-wa-simulasi.git
 ```
 
 Contoh nyata:
 ```bash
-git clone https://ghp_abc123xyz@github.com/azmi/wa-simulasi-azmi.git
+git clone https://ghp_abc123xyz@github.com/laptopazmi123-commits/spam-wa-simulasi.git
 ```
 
 #### 3. Masuk & Jalankan
+
 ```bash
-cd wa-simulasi-azmi
-python simulasi.py
+cd spam-wa-simulasi
+python azmi.py
 ```
 
 > ⚠️ Jangan share token ke siapa pun. Kalau bocor, langsung **revoke** di halaman settings.
@@ -205,7 +214,7 @@ python simulasi.py
 Kalau sudah pernah clone, terus file di GitHub diupdate:
 
 ```bash
-cd ~/wa-simulasi-azmi
+cd ~/spam-wa-simulasi
 git pull
 ```
 
@@ -217,9 +226,26 @@ git pull
 
 ---
 
-## 🧪 CONTOH SIMULASI LENGKAP (Step-by-Step)
+## 🔐 Login Default
 
-Misal repo: `https://github.com/azmi/wa-simulasi-azmi`
+Setelah program jalan, kamu akan diminta login:
+
+| Field | Value |
+|-------|-------|
+| 👤 Username | `zimzz123` |
+| 🔑 Password | `12345` |
+
+> ⚠️ **Batas 3x salah** → program otomatis keluar.
+
+Kalau mau ganti, edit di `azmi.py`:
+```python
+USERNAME = "zimzz123"
+PASSWORD = "12345"
+```
+
+---
+
+## 🧪 CONTOH SIMULASI LENGKAP (Step-by-Step)
 
 ```bash
 # 1. Buka Termux, update
@@ -232,23 +258,23 @@ pkg install git python -y
 cd ~
 
 # 4. Clone repo
-git clone https://github.com/azmi/wa-simulasi-azmi.git
+git clone https://github.com/laptopazmi123-commits/spam-wa-simulasi.git
 
 # 5. Masuk folder
-cd wa-simulasi-azmi
+cd spam-wa-simulasi
 
 # 6. Lihat isi
 ls -la
 
 # 7. Jalankan
-python simulasi.py
+python azmi.py
 ```
 
 ---
 
 ## 🖼️ Preview Tampilan
 
-### Tampilan Menu Utama
+### Tampilan Login Awal
 ```
   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
@@ -259,104 +285,123 @@ python simulasi.py
   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-  ███████╗██████╗  █████╗ ███╗   ███╗    ██╗    ██╗ █████╗
-  ██╔════╝██╔══██╗██╔══██╗████╗ ████║    ██║    ██║██╔══██╗
-  ███████╗██████╔╝███████║██╔████╔██║    ██║ █╗ ██║███████║
-  ╚════██║██╔═══╝ ██╔══██║██║╚██╔╝██║    ██║███╗██║██╔══██║
-  ███████║██║     ██║  ██║██║ ╚═╝ ██║    ╚███╔███╔╝██║  ██║
-  ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝
+  ╔══════════════════════════════════════════════════════╗
+  ║              🔐 LOGIN Diperlukan 🔐                  ║
+  ║                                                      ║
+  ║           👑 Status  : BELUM DIKETAHUI               ║
+  ║           ▶  YouTube : Gkx!!!                        ║
+  ╚══════════════════════════════════════════════════════╝
 
-         ═══════ [ SIMULASI - EDUKASI ONLY ] ═══════
+  Username : zimzz123
+  Password : 12345
 
-   ███████╗██╗███╗   ███╗██╗   ██╗██╗      █████╗ ███████╗██╗
-   ██╔════╝██║████╗ ████║██║   ██║██║     ██╔══██╗██╔════╝██║
-   ███████╗██║██╔████╔██║██║   ██║██║     ███████║███████╗██║
-   ╚════██║██║██║╚██╔╝██║██║   ██║██║     ██╔══██║╚════██║██║
-   ███████║██║██║ ╚═╝ ██║╚██████╔╝███████╗██║  ██║███████║██║
-   ╚══════╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝
+  [✓] Login berhasil! Selamat datang, zimzz123.
+  👑 Status  : OWNER / CREATOR
+  ▶  YouTube : Gkx!!!
+```
 
+### Tampilan Menu Utama (Setelah Login)
+```
   ╔══════════════════════════════════════════════════════╗
   ║           🔥 Created by : AZMI 🔥                    ║
-  ║           ⚠  Tidak kirim ke WhatsApp asli            ║
+  ║           👑 Status    : OWNER / CREATOR             ║
+  ║           ▶  YouTube   : Gkx!!!                      ║
+  ║           ⚠  Tidak kirim ke WA/Telegram asli         ║
   ╚══════════════════════════════════════════════════════╝
-   📅 SELASA, 24 SEPTEMBER 2024  ⏰ 14:35:07 WIB
   ────────────────────────────────────────────────────────
-  Nomor default : 085758524193
+  👤 Login sebagai : zimzz123
+  👑 Status        : OWNER / CREATOR
+  ▶  YouTube       : Gkx!!!
+  📞 Nomor default : 0867686555
 
-  [1] Mulai Simulasi
-  [2] Lihat Log
-  [3] Hapus Log
-  [4] Info / Disclaimer
-  [5] Keluar
+  [1] SPAM OTP WA
+  [2] SPAM OTP TELEGRAM
+  [3] Lihat Log
+  [4] Hapus Log
+  [5] Info / Disclaimer
+  [6] Keluar
 
   Pilih >
 ```
 
-### Live Clock (update tiap detik)
+### Saat SPAM OTP Jalan
 ```
- 📅 SELASA, 24 SEPTEMBER 2024  ⏰ 14:35:07 WIB
- 📅 SELASA, 24 SEPTEMBER 2024  ⏰ 14:35:08 WIB
- 📅 SELASA, 24 SEPTEMBER 2024  ⏰ 14:35:09 WIB
-```
+  ╔══════════════════════════════════════════════╗
+  ║        📨 SPAM OTP - WHATSAPP                ║
+  ╚══════════════════════════════════════════════╝
 
-### Saat Simulasi Jalan
-```
-[i] Target  : 085758524193
-[i] Pesan   : Halo ini simulasi
-[i] Jumlah  : 5
-[i] Delay   : 0.5s
-[i] MODE    : SIMULASI LOKAL (tidak kirim ke WA)
+  Nomor target [0867686555] > 0867686555
+  Jumlah OTP  > 5
+  Delay(s)    > 0.5
 
-[1/5] [2024-09-24 14:35:10] [TERCATAT] -> 085758524193 : Halo ini simulasi
-[2/5] [2024-09-24 14:35:11] [TERCATAT] -> 085758524193 : Halo ini simulasi
+  Platform    : WHATSAPP
+  Target      : 0867686555
+  Jumlah      : 5
+  Delay       : 0.5s
+  MODE        : LOKAL (tidak kirim ke WhatsApp)
+  👑 Status    : OWNER / CREATOR
+  ▶  YouTube   : Gkx!!!
+
+[1/5] [2024-09-24 15:00:01] [TERCATAT] [WhatsApp] -> 0867686555 : KODE OTP = 482913
+[2/5] [2024-09-24 15:00:02] [TERCATAT] [WhatsApp] -> 0867686555 : KODE OTP = 157204
+[3/5] [2024-09-24 15:00:02] [TERCATAT] [WhatsApp] -> 0867686555 : KODE OTP = 893416
 ...
+```
 
+### Ringkasan
+```
 ==========================================================
-                [ RINGKASAN SIMULASI ]
+           [ RINGKASAN SPAM OTP WHATSAPP ]
 ==========================================================
-  Target    : 085758524193
+  Platform  : WHATSAPP
+  Target    : 0867686555
   Sukses    : 5
   Gagal     : 0
-  Log file  : log_simulasi.txt
+  Log file  : log_otp_wa.txt
+  Operator  : zimzz123 (OWNER / CREATOR)
+  YouTube   : Gkx!!!
 ==========================================================
+[i] OTP di atas adalah random/palsu.
+    Tidak ada yang benar-benar terkirim.
 ```
 
 ---
 
 ## 🎮 Contoh Penggunaan
 
-### Skenario 1 — Simulasi 5 Pesan ke Nomor Default
+### Skenario 1 — Login + SPAM OTP WA 5x
 ```
+Username : zimzz123
+Password : 12345
 Pilih > 1
-Nomor target [085758524193] > (Enter aja untuk pakai default)
-Pesan > Halo ini simulasi
-Jumlah  > 5
-Delay(s)> 0.5
+Nomor target [0867686555] > (Enter)
+Jumlah OTP  > 5
+Delay(s)    > 0.5
 ```
 
-### Skenario 2 — Simulasi 20 Pesan Delay Cepat
-```
-Pilih > 1
-Nomor target [085758524193] > 085758524193
-Pesan > Testing 123
-Jumlah  > 20
-Delay(s)> 0.2
-```
-
-### Skenario 3 — Lihat Log
+### Skenario 2 — SPAM OTP Telegram 10x
 ```
 Pilih > 2
+Nomor target [0867686555] > 0867686555
+Jumlah OTP  > 10
+Delay(s)    > 1
 ```
 
-### Skenario 4 — Hapus Log
+### Skenario 3 — Lihat Log WA
 ```
 Pilih > 3
-Yakin hapus? (y/n) > y
+Pilih > 1
+```
+
+### Skenario 4 — Hapus Semua Log
+```
+Pilih > 4
+Pilih > 3
 ```
 
 ### Skenario 5 — Keluar
 ```
-Pilih > 5
+Pilih > 6
 ```
 Atau tekan **CTRL + C**.
 
@@ -365,16 +410,18 @@ Atau tekan **CTRL + C**.
 ## 📂 Struktur File
 
 ```
-wa-simulasi-azmi/
-├── simulasi.py          # Script utama (Author: Azmi)
-├── README.md            # Dokumentasi ini
-├── .gitignore           # Biar log gak keupload
-└── log_simulasi.txt     # Auto-generated saat simulasi jalan
+spam-wa-simulasi/
+├── azmi.py                  # Script utama (Author: Azmi)
+├── README.md                # Dokumentasi ini
+├── .gitignore               # Biar log gak keupload
+├── log_otp_wa.txt           # Auto-generated saat spam WA
+└── log_otp_telegram.txt     # Auto-generated saat spam Telegram
 ```
 
 ### Isi `.gitignore` (opsional):
 ```
-log_simulasi.txt
+log_otp_wa.txt
+log_otp_telegram.txt
 __pycache__/
 *.pyc
 ```
@@ -388,7 +435,7 @@ __pycache__/
 | `git: command not found` | `pkg install git -y` |
 | `python: command not found` | `pkg install python -y` |
 | `fatal: could not read Username` | Repo private → pakai token (Cara 3) |
-| `Permission denied` | `chmod +x simulasi.py` |
+| `Permission denied` | `chmod +x azmi.py` |
 | `No such file or directory` | Cek nama folder: `ls ~` |
 | `Authentication failed` | Token expired / salah → bikin token baru |
 | `unzip: command not found` | `pkg install unzip -y` |
@@ -396,7 +443,8 @@ __pycache__/
 | `IndentationError` | File corrupt → clone ulang |
 | Repo tidak ketemu (404) | Cek URL, pastikan repo public / token valid |
 | Warna tidak muncul | Normal — sebagian terminal tidak support ANSI |
-| Jam tidak update | Pastikan pakai Termux terbaru dari F-Droid |
+| Login salah terus | Pastikan `zimzz123` / `12345` (huruf kecil) |
+| 3x salah login | Program keluar otomatis — restart & coba lagi |
 
 ---
 
@@ -424,7 +472,7 @@ nano ~/.bashrc
 
 ### 2. Tambahkan di baris paling bawah
 ```bash
-alias spam='cd ~/wa-simulasi-azmi && python simulasi.py'
+alias spam='cd ~/spam-wa-simulasi && python azmi.py'
 ```
 
 Simpan: **CTRL+O** → Enter → **CTRL+X**
@@ -446,7 +494,7 @@ Langsung jalan! 🔥
 
 Hapus folder project:
 ```bash
-rm -rf ~/wa-simulasi-azmi
+rm -rf ~/spam-wa-simulasi
 ```
 
 Hapus Python & Git (kalau mau):
@@ -460,17 +508,34 @@ pkg uninstall python git -y
 
 **Script ini dibuat 100% untuk tujuan EDUKASI.**
 
-- ✅ Boleh dipakai untuk: belajar Python, logika loop, threading, ANSI color
-- ❌ DILARANG dipakai untuk: spam WA ke orang lain
+### ✅ Boleh dipakai untuk:
+- Belajar Python & logika loop
+- Belajar file I/O
+- Belajar ANSI color di terminal
+- Belajar sistem login sederhana
+- Portofolio coding
 
-**Peringatan hukum:**
-- Spam WA = pelanggaran **UU ITE Pasal 27 & 29**
+### ❌ DILARANG dipakai untuk:
+- Spam OTP ke orang lain
+- Menipu / mengelabui orang
+- Aktivitas ilegal apa pun
+- Menjual sebagai jasa spam
+
+### ⚖️ Peringatan Hukum:
+- Spam OTP = pelanggaran **UU ITE Pasal 27 & 29**
 - Ancaman pidana: **penjara hingga 4 tahun** + denda
-- Akun WhatsApp bisa di-**ban permanen** oleh Meta
+- Akun WhatsApp / Telegram bisa di-**ban permanen**
+- Pelaku bisa dituntut **perdata & pidana**
 
-Script ini **TIDAK** terhubung ke WhatsApp, API, atau internet apa pun. Nomor `085758524193` hanya ditulis sebagai **teks di file log lokal** di HP kamu sendiri.
+### 🔒 Tentang Script Ini:
+- **TIDAK** terhubung ke WhatsApp, Telegram, API, atau internet apa pun
+- **HANYA** menulis ke file log lokal di HP kamu sendiri
+- Kode OTP yang muncul adalah **RANDOM/PALSU** (bukan OTP asli)
+- Nomor `0867686555` hanya ditulis sebagai **teks di file log lokal**
+- Login `zimzz123` / `12345` hanya untuk **belajar sistem login**
 
 Kalau mau otomasi WhatsApp yang legal, gunakan **WhatsApp Cloud API** resmi dari Meta.
+Kalau mau otomasi Telegram yang legal, gunakan **Telegram Bot API** resmi.
 
 ---
 
@@ -478,9 +543,10 @@ Kalau mau otomasi WhatsApp yang legal, gunakan **WhatsApp Cloud API** resmi dari
 
 **Azmi**
 - 📅 Tahun: 2024
-- 📌 Versi: 3.0.0
+- 📌 Versi: 5.3.0
+- ▶  YouTube: **Gkx!!!**
 - 🎯 Tujuan: Edukasi & portofolio
-- 🐙 GitHub: [@azmi](https://github.com/laptopazmi123-commits/spam-wa-simulasi)
+- 🐙 GitHub: [@laptopazmi123-commits](https://github.com/laptopazmi123-commits)
 
 ---
 
@@ -492,4 +558,5 @@ Dilarang dijual atau dipakai untuk aktivitas ilegal.
 ---
 
 **Made with 🔥 by Azmi — 2024**
+**▶  YouTube: Gkx!!!**
 **Stay legal, stay ethical. 🛡️**
